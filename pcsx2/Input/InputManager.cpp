@@ -1757,8 +1757,12 @@ bool InputManager::IsInputSourceEnabled(SettingsInterface& si, InputSourceType t
 
 bool InputManager::IsUsingRawInput()
 {
+#ifdef _WIN32
 	const u32 idx = static_cast<u32>(InputSourceType::RawInput);
 	return s_input_sources[idx] && s_input_sources[idx]->IsInitialized();
+#else
+	return false;
+#endif
 }
 
 template <typename T>
