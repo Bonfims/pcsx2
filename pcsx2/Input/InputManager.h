@@ -27,6 +27,7 @@ enum class InputSourceType : u32
 #ifdef _WIN32
 	DInput,
 	XInput,
+	RawInput,
 #endif
 	Count,
 };
@@ -166,12 +167,12 @@ namespace InputManager
 	static constexpr double VIBRATION_UPDATE_INTERVAL_SECONDS = 0.5; // 500ms
 
 	/// Maximum number of host mouse devices.
-	static constexpr u32 MAX_POINTER_DEVICES = 1;
+	static constexpr u32 MAX_POINTER_DEVICES = 4;
 	static constexpr u32 MAX_POINTER_BUTTONS = 3;
 
 	/// Maximum number of software cursors. We allocate an extra two for USB devices with
 	/// positioning data from the controller instead of a mouse.
-	static constexpr u32 MAX_SOFTWARE_CURSORS = MAX_POINTER_BUTTONS + 2;
+	static constexpr u32 MAX_SOFTWARE_CURSORS = MAX_POINTER_DEVICES + 2;
 
 	/// Returns a pointer to the external input source class, if present.
 	InputSource* GetInputSourceInterface(InputSourceType type);
@@ -244,6 +245,9 @@ namespace InputManager
 
 	/// Returns whether a given input source is enabled.
 	bool IsInputSourceEnabled(SettingsInterface& si, InputSourceType type);
+
+	/// Returns true if the RawInput source is initialized and active.
+	bool IsUsingRawInput();
 
 	/// Re-parses the config and registers all hotkey and pad bindings.
 	void ReloadBindings(SettingsInterface& si, SettingsInterface& binding_si, SettingsInterface& hotkey_binding_si, bool is_binding_profile, bool is_hotkey_profile);
