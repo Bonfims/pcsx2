@@ -69,7 +69,7 @@ void DisplaySurface::updateRelativeMode(bool enabled)
 {
 #ifdef _WIN32
 	// prefer ClipCursor() over warping movement when we're using raw input
-	bool clip_cursor = enabled && false /*InputManager::IsUsingRawInput()*/;
+	bool clip_cursor = enabled && InputManager::IsUsingRawInput();
 	if (m_relative_mouse_enabled == enabled && m_clip_mouse_enabled == clip_cursor)
 		return;
 
@@ -300,6 +300,11 @@ bool DisplaySurface::event(QEvent* event)
 
 		case QEvent::MouseMove:
 		{
+			// When RawInput is active, per-device pointer updates come from
+			// Win32RawInputSource. Skip Qt-based mouse handling.
+			if (InputManager::IsUsingRawInput())
+				return true;
+
 			const QMouseEvent* mouse_event = static_cast<QMouseEvent*>(event);
 
 			if (!m_relative_mouse_enabled)
