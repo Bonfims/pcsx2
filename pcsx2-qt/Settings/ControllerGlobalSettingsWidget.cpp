@@ -52,12 +52,16 @@ ControllerGlobalSettingsWidget::ControllerGlobalSettingsWidget(QWidget* parent, 
 #ifdef _WIN32
 	ControllerSettingWidgetBinder::BindWidgetToInputProfileBool(sif, m_ui.enableXInputSource, "InputSources", "XInput", false);
 	ControllerSettingWidgetBinder::BindWidgetToInputProfileBool(sif, m_ui.enableDInputSource, "InputSources", "DInput", false);
+	ControllerSettingWidgetBinder::BindWidgetToInputProfileBool(sif, m_ui.enableRawInputSource, "InputSources", "RawInput", false);
 #else
 	m_ui.mainLayout->removeWidget(m_ui.xinputGroup);
 	m_ui.xinputGroup->deleteLater();
 	m_ui.xinputGroup = nullptr;
 	m_ui.mainLayout->removeWidget(m_ui.dinputGroup);
 	m_ui.dinputGroup->deleteLater();
+	m_ui.mainLayout->removeWidget(m_ui.rawInputGroup);
+	m_ui.rawInputGroup->deleteLater();
+	m_ui.rawInputGroup = nullptr;
 	m_ui.dinputGroup = nullptr;
 #endif
 

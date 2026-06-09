@@ -101,6 +101,32 @@
      </layout>
     </widget>
    </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="rawInputGroup">
+     <property name="title">
+      <string>Raw Input Source</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_7">
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="enableRawInputSource">
+        <property name="text">
+         <string>Enable Raw Input</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="rawInputDescription">
+        <property name="text">
+         <string>Uses raw input for multiple mice and lightguns. Enable this if you wish to use two or more lightguns for 2-player games. Improves precision and allows each gun to be tracked independently.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="6" column="0">
     <widget class="QGroupBox" name="profileSettings">
      <property name="title">
@@ -312,6 +338,7 @@
   <tabstop>enableSDLMFIDriver</tabstop>
   <tabstop>enableXInputSource</tabstop>
   <tabstop>enableDInputSource</tabstop>
+  <tabstop>enableRawInputSource</tabstop>
   <tabstop>enableMouseMapping</tabstop>
   <tabstop>mouseSettings</tabstop>
   <tabstop>multitapPort1</tabstop>
