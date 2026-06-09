@@ -699,6 +699,7 @@ static std::array<const char*, static_cast<u32>(InputSourceType::Count)> s_input
 #ifdef _WIN32
 	"DInput",
 	"XInput",
+	"RawInput",
 #endif
 }};
 
@@ -726,6 +727,8 @@ bool InputManager::GetInputSourceDefaultEnabled(InputSourceType type)
 			return false;
 
 		case InputSourceType::XInput:
+			return false;
+		case InputSourceType::RawInput:
 			return false;
 #endif
 
@@ -1752,6 +1755,12 @@ bool InputManager::IsInputSourceEnabled(SettingsInterface& si, InputSourceType t
 	return si.GetBoolValue("InputSources", InputManager::InputSourceToString(type), InputManager::GetInputSourceDefaultEnabled(type));
 }
 
+bool InputManager::IsUsingRawInput()
+{
+	const u32 idx = static_cast<u32>(InputSourceType::RawInput);
+	return s_input_sources[idx] && s_input_sources[idx]->IsInitialized();
+}
+
 template <typename T>
 void InputManager::UpdateInputSourceState(SettingsInterface& si, std::unique_lock<std::mutex>& settings_lock, InputSourceType type)
 {
@@ -1792,6 +1801,7 @@ void InputManager::UpdateInputSourceState(SettingsInterface& si, std::unique_loc
 #ifdef _WIN32
 #include "Input/DInputSource.h"
 #include "Input/XInputSource.h"
+#include "Input/Win32RawInputSource.h"
 #endif
 
 void InputManager::ReloadSources(SettingsInterface& si, std::unique_lock<std::mutex>& settings_lock)
@@ -1800,5 +1810,6 @@ void InputManager::ReloadSources(SettingsInterface& si, std::unique_lock<std::mu
 #ifdef _WIN32
 	UpdateInputSourceState<DInputSource>(si, settings_lock, InputSourceType::DInput);
 	UpdateInputSourceState<XInputSource>(si, settings_lock, InputSourceType::XInput);
+	UpdateInputSourceState<Win32RawInputSource>(si, settings_lock, InputSourceType::RawInput);
 #endif
 }
