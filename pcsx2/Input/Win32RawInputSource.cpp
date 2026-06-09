@@ -387,12 +387,12 @@ bool Win32RawInputSource::ProcessRawInputEvent(const RAWINPUT& ev)
 		// Handle relative movement (standard mice)
 		if (mouse.lLastX != 0)
 		{
-			InputManager::UpdatePointerRelativeDelta(pointer_index, InputPointerAxis::PointerX,
+			InputManager::UpdatePointerRelativeDelta(pointer_index, InputPointerAxis::X,
 				static_cast<float>(mouse.lLastX), true);
 		}
 		if (mouse.lLastY != 0)
 		{
-			InputManager::UpdatePointerRelativeDelta(pointer_index, InputPointerAxis::PointerY,
+			InputManager::UpdatePointerRelativeDelta(pointer_index, InputPointerAxis::Y,
 				static_cast<float>(mouse.lLastY), true);
 		}
 	}
